@@ -2,7 +2,7 @@ let webpack = require('webpack');
 
 module.exports = {
     entry: {
-        app: ['./client/app.js']
+        app: ['./index.js']
     },
     devtool: 'cheap-module-source-map',
     output: {
@@ -15,10 +15,11 @@ module.exports = {
             { test: /\.css$/, use: ['style-loader', 'css-loader'] },
             { test: /\.s[ac]ss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
             { test: /\.js$/, use: ['babel-loader'], exclude: /node_modules/ },
+            { test: /\.ts$/, use: ['ts-loader'], exclude: /node_modules/ }
         ]
     },
     resolve: {
-        extensions: ['.js', '.jsx', '.scss', '.css', '.json']
+        extensions: ['.ts', '.js', '.jsx', '.scss', '.css', '.json']
     },
     plugins: [
         new webpack.IgnorePlugin(/.js.map$/)

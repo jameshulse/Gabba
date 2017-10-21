@@ -1,0 +1,31 @@
+{
+    "Instructions": {
+        "All": "/roms/cpu_instrs/cpu_instrs.gb",
+        "01 - Special": "/roms/cpu_instrs/individual/01-special.gb",
+        "02 - Interrupts": "/roms/cpu_instrs/individual/02-interrupts.gb",
+        "03 - Op sp, hl": "/roms/cpu_instrs/individual/03-op sp,hl.gb",
+        "04 - Op r, imm": "/roms/cpu_instrs/individual/04-op r,imm.gb",
+        "05 - Op rp": "/roms/cpu_instrs/individual/05-op rp.gb",
+        "06 - ld r, r": "/roms/cpu_instrs/individual/06-ld r,r.gb",
+        "07 - jr, jp, call, re, rst": "/roms/cpu_instrs/individual/07-jr,jp,call,re,rst.gb",
+        "08 - Misc instructions": "/roms/cpu_instrs/individual/08-misc instrs.gb",
+        "09 - Op r, r": "/roms/cpu_instrs/individual/09-op r,r.gb",
+        "10 - Bitwise operations": "/roms/cpu_instrs/individual/10-bit ops.gb",
+        "11 - Op A": "/roms/cpu_instrs/individual/11-op a,(hl).gb"
+    },
+    "Sound": {
+        "All": "/roms/cgb_sound/cgb_sound.gb",
+        "01 - Registers": "/roms/cgb_sound/rom_singles/01-registers.gb",
+        "02 - Len CTR": "/roms/cgb_sound/rom_singles/02-len ctr.gb",
+        "03 - Trigger": "/roms/cgb_sound/rom_singles/03-trigger.gb",
+        "04 - Sweep": "/roms/cgb_sound/rom_singles/04-sweep.gb",
+        "05 - Sweep Details": "/roms/cgb_sound/rom_singles/05-sweep details.gb",
+        "06 - Overflow on trigger": "/roms/cgb_sound/rom_singles/06-overflow on trigger.gb",
+        "07 - Len sweep period sync": "/roms/cgb_sound/rom_singles/07-len sweep period sync.gb",
+        "08 - Len ctr during power": "/roms/cgb_sound/rom_singles/08-len ctr during power.gb",
+        "09 - Wave read while on": "/roms/cgb_sound/rom_singles/09-wave read while on.gb",
+        "10 - Wave trigger while on": "/roms/cgb_sound/rom_singles/10-wave trigger while on.gb",
+        "11 - Regs after power": "/roms/cgb_sound/rom_singles/11-regs after power.gb",
+        "12 - Wave": "/roms/cgb_sound/rom_singles/12-wave.gb"
+    }
+}
