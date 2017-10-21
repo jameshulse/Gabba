@@ -18,11 +18,11 @@ export default ({ onLoad }) => {
         };
     };
 
-    let loadFromUrl = () => {
+    let loadFromUrl = (url) => {
         fetch(url).then(async (response) => {
             let data = await response.arrayBuffer();
 
-            this.props.onSelect({
+            onLoad({
                 name,
                 data
             });
@@ -33,7 +33,9 @@ export default ({ onLoad }) => {
         let romLinks = [];
 
         for (let key in roms[name]) {
-            romLinks.push(<a key={romLinks.length} className="panel-block" href="#">{ key }</a>);
+            let element = <a onClick={() => loadFromUrl(roms[name][key])} key={romLinks.length} className="panel-block" href="#">{key}</a>;
+            
+            romLinks.push(element);
         }
 
         return (

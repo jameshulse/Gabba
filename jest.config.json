@@ -1,0 +1,20 @@
+{
+    "moduleDirectories": [
+        "node_modules",
+        "core"
+    ],
+    "moduleFileExtensions": ["js", "jsx", "json", "ts", "tsx"],
+    "transform": {
+        "\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "transformIgnorePatterns": [
+        "node_modules"
+    ],
+    "testMatch": ["**/?(*.)(spec|test).[j|t]s?(x)"],
+    "globals": {
+        "NODE_ENV": "test",
+        "ts-jest": {
+            "useBabelrc": true
+        }
+    }
+}

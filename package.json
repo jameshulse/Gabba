@@ -8,9 +8,10 @@
     "dev": "webpack-dev-server --colors --progress --hot",
     "production": "webpack",
     "start": "node server.js",
-    "test": "jest . --coverage"
+    "test": "jest __tests__ --coverage --config jest.config.json"
   },
   "dependencies": {
+    "@types/jest": "^21.1.4",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -26,6 +27,7 @@
     "react-dom": "^16.0.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
+    "ts-jest": "^21.1.3",
     "ts-loader": "^3.0.5",
     "typescript": "^2.5.3",
     "webpack": "^3.8.1",

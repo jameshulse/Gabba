@@ -8,10 +8,9 @@ export default class Emulator extends React.Component {
     constructor(props) {
         super(props);
 
-        this.gameboy = new Gameboy();
+        this.gameboy = new Gameboy(props.rom);
 
         this.state = {
-            rom: props.rom,
             log: []
         };
     }
@@ -30,7 +29,7 @@ export default class Emulator extends React.Component {
                         <Title size={5}>Debugger</Title>
                     </div>
                     <div className="column is-one-third">
-                        <Screen width={240} height={160} />
+                        <Screen width={160} height={144} />
 
                         <Log lines={log} />
                     </div>
