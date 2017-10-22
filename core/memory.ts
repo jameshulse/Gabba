@@ -1,11 +1,13 @@
+const MEMORY_SIZE = 0xFFFF;
+
 export default class Memory {
-    public data: ArrayBuffer;
+    public memory: DataView;
+    
+    public load(rom: Uint8Array) {
+        let data = new Uint8Array(MEMORY_SIZE);
 
-    constructor() {
-        this.data = new ArrayBuffer(0xFFFF);
-    }
+        data.set(rom /* TODO: what is the ROM offset? */);
 
-    public reset() {
-
+        this.memory = new DataView(data.buffer);
     }
 }
