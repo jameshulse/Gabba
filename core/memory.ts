@@ -10,4 +10,14 @@ export default class Memory {
 
         this.memory = new DataView(data.buffer);
     }
+
+    public reset() {
+        if (!this.memory) {
+            return;
+        }
+
+        for (let i = 0; i < this.memory.byteLength; i++) {
+            this.memory.setUint8(i, 0);
+        }
+    }
 }

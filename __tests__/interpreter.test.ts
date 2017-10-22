@@ -8,23 +8,40 @@ describe('Parse', () => {
         expect(interpreter.parse(0xA8).q).toBe(1);
     });
 
+    test('Extract p', () => {
+        // expect(interpreter.parse(0xA8).q).toBe(1); // TODO
+    });
+
     test('Extract x', () => {
         // expect(interpreter.decode(0x00).x).toBe(1); // TODO
     });
 
-    test('Extract z', () => {
-        expect(interpreter.parse(0xFD).z).toBe(5);
+    test('Extract y', () => {
+        // expect(interpreter.decode(0x00).x).toBe(1); // TODO
     });
+
+    test('Extract z', () => {
+        expect(interpreter.parse(0xFD).z).toBe(0x05);
+    });
+
+    test('Extract xz', () => {
+        expect(interpreter.parse(0xC3).xz).toBe(0x33);
+    })
 });
 
-describe('Dissassembly', () => {
-    let romPath = path.join(__dirname, '../roms/Pokemon Red.gb');
+let loadRom = (path) => {
+    let romPath = path.join(__dirname, path);
     let fileBuffer = fs.readFileSync(romPath);
-    let romData = new DataView(fileBuffer.buffer);
 
-    test('Can decode', () => {
-        let instructions = interpreter.disassemble(romData);
-    
-        expect(instructions).not.toHaveLength(0);
+    return new DataView(fileBuffer.buffer);
+}
+
+describe('Dissassembly', () => {
+    let pokemon = loadRom('../roms/games/Pokemon Red.gb');
+
+    test('Can decode headers', () => {
+        let rom = interpreter.disassemble(pokemon);
+
+        expect(rom.header.title).not.toHaveLength(0);
     });
 })

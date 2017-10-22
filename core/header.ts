@@ -4,7 +4,8 @@ import * as reference from './reference';
 export default class Header {
     public title: string;
     public licensee: string;
-    public cartridgeType: number;
+    public cartridgeTypeCode: number;
+    public cartridgeTypeName: string;
     public romSizeCode: number;
     public ramSizeCode: number;
     public destination: string;
@@ -13,7 +14,8 @@ export default class Header {
     constructor(romData: DataView) {
         this.title = readString(romData, 0x134, 16);
         this.licensee = this.getLicensee(romData);
-        this.cartridgeType = reference.cartridgeType[romData.getUint8(0x147)];
+        this.cartridgeTypeCode = romData.getUint8(0x147);
+        this.cartridgeTypeName = reference.cartridgeType[this.cartridgeTypeCode];
         this.romSizeCode = romData.getUint8(0x148);
         this.ramSizeCode = romData.getUint8(0x149);
         this.destination = romData.getUint8(0x14A) === 0x00 ? 'Japanese' : 'Non-Japanese';

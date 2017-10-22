@@ -5,6 +5,7 @@ export interface IRom {
 
 export interface IOpCode {
     instruction: number;
+    opCode: number;
     x: number;
     z: number;
     xz: number;
