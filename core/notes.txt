@@ -1,0 +1,1 @@
+Like Z80 but only has CB prefix not: DD-, ED-, and FD

@@ -32,3 +32,15 @@ export function range(first: number, second?: number) {
         return Array(second - first).fill(null).map((_, i) => i + first);
     }
 }
+
+export function readString(data: DataView, offset: number, length: number) {
+    let result = '';
+
+    for (let i = 0; i < length; i++) {
+        let byte = data.getUint8(offset + i);
+
+        result += String.fromCharCode(byte);
+    }
+
+    return result;
+}

@@ -4,6 +4,7 @@
         {
             "type": "node",
             "request": "launch",
+            "protocol": "inspector",
             "name": "Launch Jest",
             "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
             "cwd": "${workspaceRoot}",

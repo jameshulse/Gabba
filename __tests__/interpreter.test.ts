@@ -3,9 +3,9 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as interpreter from '../core/interpreter';
 
-describe('Decode', () => {
+describe('Parse', () => {
     test('Extract q', () => {
-        expect(interpreter.decode(0xA8).q).toBe(1);
+        expect(interpreter.parse(0xA8).q).toBe(1);
     });
 
     test('Extract x', () => {
@@ -13,12 +13,12 @@ describe('Decode', () => {
     });
 
     test('Extract z', () => {
-        expect(interpreter.decode(0xFD).z).toBe(5);
+        expect(interpreter.parse(0xFD).z).toBe(5);
     });
 });
 
-describe('Dissambly', () => {
-    let romPath = path.join(__dirname, '../roms/cpu_instrs/individual/01-special.gb');
+describe('Dissassembly', () => {
+    let romPath = path.join(__dirname, '../roms/Pokemon Red.gb');
     let fileBuffer = fs.readFileSync(romPath);
     let romData = new DataView(fileBuffer.buffer);
 
@@ -27,5 +27,4 @@ describe('Dissambly', () => {
     
         expect(instructions).not.toHaveLength(0);
     });
-
 })

@@ -2,3 +2,4 @@ node_modules/
 static/
 coverage/
 .DS_Store
+roms/games/
