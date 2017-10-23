@@ -1,4 +1,7 @@
 {
+    "Misc": {
+        "Boot": "/roms/Boot ROM.gb"
+    },
     "Instructions": {
         "All": "/roms/cpu_instrs/cpu_instrs.gb",
         "01 - Special": "/roms/cpu_instrs/individual/01-special.gb",

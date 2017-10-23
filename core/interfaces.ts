@@ -1,4 +1,6 @@
-export interface IRom {
+import Registers from './registers';
+
+export interface IRomFile {
     name: string;
     data: Uint8Array;
 }
@@ -8,8 +10,13 @@ export interface IOpCode {
     opCode: number;
     x: number;
     z: number;
-    xz: number;
     y: number;
     q: number;
     p: number;
+}
+
+export interface ICpuState {
+    memory: DataView;
+    registers: Registers;
+    ticks: number;
 }

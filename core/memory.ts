@@ -1,4 +1,4 @@
-const MEMORY_SIZE = 0xFFFF;
+const MEMORY_SIZE = 0x10000;
 
 export default class Memory {
     public memory: DataView;

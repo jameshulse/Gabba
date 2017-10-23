@@ -1,4 +1,4 @@
-import { IRom, IOpCode } from './interfaces';
+import { IOpCode } from './interfaces';
 import { formatHex, readString } from './utils';
 import * as instructions from './instructions';
 import Rom from './rom';
@@ -7,37 +7,31 @@ import Header from './header';
 const opMap = (parts: IOpCode, next: () => number) => {
     // See: http://www.z80.info/decoding.htm
     //      http://www.z80.info/z80gboy.txt
-    switch (parts.xz) {
+    //      http://clrhome.org/table
+    //      http://www.pastraiser.com/cpu/gameboy/gameboy_opcodes.html
+    //      http://z80-heaven.wikidot.com/opcode-reference-chart
+    switch (parts.opCode) {
         case 0x00:
-            switch (parts.y) {
-                case 0x0:
-                    return { text: 'nop', execute: instructions.nop() };
-                case 0x1:
-                    return { text: 'EX AF, AF', execute: instructions.nop() };
-                case 0x2: {
-                    let d = next();
-
-                    return { text: 'DJNZ d', execute: instructions.nop() };
-                }
-                case 0x3: {
-                    let d = next();
-
-                    return { text: 'JR d', execute: instructions.nop() };
-                }
-                case 0x4:
-                case 0x5:
-                case 0x6:
-                case 0x7: {
-                    let d = next();
-
-                    return { text: `JR cc[${parts.y - 4}], d`, execute: instructions.nop() };
-                }
-            }
-        case 0x33:
+            return { text: 'NOP', execute: instructions.nop() };
+        case 0x01: {
             let nn = next() | (next() << 8);
 
-            return { text: `JP ${formatHex(nn)}`, execute: instructions.jump(nn) };
-        case 0x36:
+            return { text: 'ld bc, **', execute: null /* todo */ };
+        }
+        case 0xC3: {
+            let nn = next() | (next() << 8);
+
+            return { text: `jp ${formatHex(nn)}`, execute: instructions.jump(nn) };
+        }
+        case 0x43: {
+            return { text: '' };
+        }
+        case 0x46: {
+            return { text: 'ld b, (hl)' };
+        }
+        case 0x47:
+            return { text: 'ld b, a', execute: instructions.loadAtoB() };
+        case 0xC6:
             switch (parts.y) {
                 case 0x0:
                     return;
@@ -53,24 +47,21 @@ const opMap = (parts: IOpCode, next: () => number) => {
                     return;
                 case 0x6:
                     return;
-                case 0x7:
+                case 0x7: {
                     let n = next();
 
                     return { text: `CP ${formatHex(n, 2)}`, execute: instructions.compare(n) };
+                }
             }
     }
 };
 
 export function parse(byte: number) : IOpCode {
-    let x = byte >>> 6;
-    let z = byte & 0x07;
-
     return {
         instruction: byte,
         opCode: byte & 0xC7,
-        x,
-        z,
-        xz: (x << 4) | z, // used for instruction mapping
+        x: byte >>> 6,
+        z: byte & 0x07,
         y: (byte & 0x38) >>> 3,
         p: (byte & 0x30) >>> 3,
         q: (byte & 0x8) >>> 3

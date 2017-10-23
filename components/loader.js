@@ -52,7 +52,7 @@ export default ({ onLoad }) => {
     return (
         <div>
             <div className="section">
-                <Title size={5}>Choose ROM file</Title>
+                <Title size={5}>Choose ROM from file</Title>
                 <FileSelect onChange={loadFromFile} />
             </div>
             <div className="section">

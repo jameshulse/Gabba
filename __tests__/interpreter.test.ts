@@ -23,25 +23,28 @@ describe('Parse', () => {
     test('Extract z', () => {
         expect(interpreter.parse(0xFD).z).toBe(0x05);
     });
-
-    test('Extract xz', () => {
-        expect(interpreter.parse(0xC3).xz).toBe(0x33);
-    })
 });
 
-let loadRom = (path) => {
-    let romPath = path.join(__dirname, path);
+let loadRom = (file) => {
+    let romPath = path.join(__dirname, file);
     let fileBuffer = fs.readFileSync(romPath);
 
     return new DataView(fileBuffer.buffer);
 }
 
-describe('Dissassembly', () => {
+describe('Dissassemble', () => {
     let pokemon = loadRom('../roms/games/Pokemon Red.gb');
+    let testRom = loadRom('../roms/Boot ROM.gb');
 
-    test('Can decode headers', () => {
-        let rom = interpreter.disassemble(pokemon);
+    // test('Can decode headers', () => {
+    //     let rom = interpreter.disassemble(pokemon);
 
-        expect(rom.header.title).not.toHaveLength(0);
+    //     expect(rom.header.title).not.toHaveLength(0);
+    // });
+
+    test('Decode instructions', () => {
+        let rom = interpreter.disassemble(testRom);
+
+        expect(Object.getOwnPropertyNames(rom.instructions)).not.toHaveLength(0);
     });
-})
+});
