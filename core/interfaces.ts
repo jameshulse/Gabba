@@ -6,7 +6,7 @@ export interface IRomFile {
 }
 
 export interface IOpCode {
-    instruction: number;
+    byte: number;
     opCode: number;
     x: number;
     z: number;

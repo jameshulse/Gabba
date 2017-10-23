@@ -26,9 +26,8 @@ const opMap = (parts: IOpCode, next: () => number) => {
         case 0x43: {
             return { text: '' };
         }
-        case 0x46: {
-            return { text: 'ld b, (hl)' };
-        }
+        case 0x46:
+            return { text: 'ld b, (hl)', execute: instructions.loadHLFromMemorytoB() };
         case 0x47:
             return { text: 'ld b, a', execute: instructions.loadAtoB() };
         case 0xC6:
@@ -58,7 +57,7 @@ const opMap = (parts: IOpCode, next: () => number) => {
 
 export function parse(byte: number) : IOpCode {
     return {
-        instruction: byte,
+        byte,
         opCode: byte & 0xC7,
         x: byte >>> 6,
         z: byte & 0x07,
@@ -86,7 +85,7 @@ export function disassemble(romData: DataView) {
         offset = parseByte(offset);
     }
 
-    // Read remaining instructions
+    // Read remaining instructions after header
     for (let offset = 0x150; offset < romData.byteLength; offset++) {
         offset = parseByte(offset);
     }

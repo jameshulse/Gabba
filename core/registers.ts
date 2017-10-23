@@ -1,13 +1,13 @@
 export default class Registers {
-    public a; // TODO: accumulator - handle this specially?
-    public b;
-    public c;
-    public d;
-    public e;
-    public f; // TODO: flags - handle this specially?
-    public h;
-    public l;
-    public sp;
+    private _a: number;
+    private _b: number;
+    private _c: number;
+    private _d: number;
+    private _e: number;
+    private _f: number; // TODO: flags - handle this specially?
+    private _h: number;
+    private _l: number;
+    public sp: number;
 
     /*
         AF    A    -    Accumulator & Flags
@@ -30,39 +30,57 @@ export default class Registers {
         this.sp = 0xFFFE; // Start of stack
     }
 
+    public get a() { return this._a; };
+    public get b() { return this._b; };
+    public get c() { return this._c; };
+    public get d() { return this._d; };
+    public get e() { return this._e; };
+    public get f() { return this._f; };
+    public get h() { return this._h; };
+    public get l() { return this._l; };
+
+    public set a(value: number) { this._a = value & 0xFF; }
+    public set b(value: number) { this._b = value & 0xFF; }
+    public set c(value: number) { this._c = value & 0xFF; }
+    public set d(value: number) { this._d = value & 0xFF; }
+    public set e(value: number) { this._e = value & 0xFF; }
+    public set f(value: number) { this._f = value & 0xFF; }
+    public set h(value: number) { this._h = value & 0xFF; }
+    public set l(value: number) { this._l = value & 0xFF; }
+
     public get af() {
-        return (this.a << 8) & this.f;
+        return (this._a << 8) & this._f;
     }
 
     public set af(value: number) {
-        this.a = value >>> 8;
-        this.f = value & 0x00FF;
+        this._a = value >>> 8;
+        this._f = value & 0x00FF;
     }
 
     public get bc() {
-        return (this.b << 8) & this.c;
+        return (this._b << 8) & this._c;
     }
 
     public set bc(value: number) {
-        this.b = value >>> 8;
-        this.c = value & 0x00FF;
+        this._b = value >>> 8;
+        this._c = value & 0x00FF;
     }
 
     public get de() {
-        return (this.d << 8) & this.e;
+        return (this._d << 8) & this._e;
     }
 
     public set de(value: number) {
-        this.d = value >>> 8;
-        this.e = value & 0x00FF;
+        this._d = value >>> 8;
+        this._e = value & 0x00FF;
     }
 
     public get hl() {
-        return (this.h << 8) & this.l;
+        return (this._h << 8) & this._l;
     }
 
     public set hl(value: number) {
-        this.h = value >>> 8;
-        this.l = value & 0x00FF;
+        this._h = value >>> 8;
+        this._l = value & 0x00FF;
     }
 };

@@ -211,7 +211,7 @@ export const oldLicensees = {
     0xFF: "ljn"
 };
 
-export const cartridgeType = {
+export const cartridgeTypes = {
     0x00: "ROM ONLY",
     0x19: "MBC5",
     0x01: "MBC1",

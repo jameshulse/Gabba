@@ -15,7 +15,7 @@ export default class Header {
         this.title = readString(romData, 0x134, 16);
         this.licensee = this.getLicensee(romData);
         this.cartridgeTypeCode = romData.getUint8(0x147);
-        this.cartridgeTypeName = reference.cartridgeType[this.cartridgeTypeCode];
+        this.cartridgeTypeName = reference.cartridgeTypes[this.cartridgeTypeCode];
         this.romSizeCode = romData.getUint8(0x148);
         this.ramSizeCode = romData.getUint8(0x149);
         this.destination = romData.getUint8(0x14A) === 0x00 ? 'Japanese' : 'Non-Japanese';
