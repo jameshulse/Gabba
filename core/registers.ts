@@ -4,7 +4,7 @@ export default class Registers {
     private _c: number;
     private _d: number;
     private _e: number;
-    private _f: number; // TODO: flags - handle this specially?
+    private _f: number;
     private _h: number;
     private _l: number;
     public sp: number;
@@ -82,5 +82,29 @@ export default class Registers {
     public set hl(value: number) {
         this._h = value >>> 8;
         this._l = value & 0x00FF;
+    }
+
+    /*
+        7    zf    Z   NZ   Zero Flag
+        6    n     -   -    Add/Sub-Flag (BCD)
+        5    h     -   -    Half Carry Flag (BCD)
+        4    cy    C   NC   Carry Flag
+        3-0  -     -   -    Not used (always zero)
+    */
+
+    public get carry() {
+        return (this._f & 0x4) === 0x4
+    }
+
+    public set carry(value: boolean) {
+        this._f = value ? (this._f | 0x08) : (this._f & 0xF7);
+    }
+
+    public get zero() {
+        return (this._f & 0x7) === 0x7
+    }
+
+    public set zero(value: boolean) {
+        this._f = value ? (this._f | 0x40) : (this._f & 0xBF);
     }
 };

@@ -16,42 +16,56 @@ const opMap = (parts: IOpCode, next: () => number) => {
         case 0x01: {
             let nn = next() | (next() << 8);
 
-            return { text: 'ld bc, **', execute: null /* todo */ };
+            return { text: 'ld bc, nn', execute: instructions.loadNNtoRegister(nn, 'bc') };
         }
+        case 0x02:
+            return { text: 'ld (bc), a', execute: instructions.loadRegisterToLocationFromRegister('a', 'bc') }
+        case 0x03:
+            return { text: 'inc bc', execute: instructions.incrementRegister('bc') };
+        case 0x04:
+            return { text: 'inc b', execute: instructions.incrementRegister('b') }
+        case 0x05:
+            return { text: 'dec b', execute: instructions.decrementRegister('b') }
+        case 0x06: {
+            let n = next();
+
+            return { text: 'ld b, n', execute: instructions.loadNtoRegister(n, 'b') }
+        }
+        case 0x07:
+            return { text: 'rlca', execute: instructions.rotateLeftCarryA() }
+        case 0x40:
+            return { text: 'ld b, b', execute: instructions.loadRegisterToRegister('b', 'b') };
+        case 0x41:
+            return { text: 'ld b, c', execute: instructions.loadRegisterToRegister('c', 'b') };
+        case 0x42:
+            return { text: 'ld b, d', execute: instructions.loadRegisterToRegister('d', 'b') };
+        case 0x43:
+            return { text: 'ld b, e', execute: instructions.loadRegisterToRegister('e', 'b') };
+        case 0x44:
+            return { text: 'ld b, h', execute: instructions.loadRegisterToRegister('h', 'b') };
+        case 0x45:
+            return { text: 'ld b, l', execute: instructions.loadRegisterToRegister('h', 'l') };
+        case 0x46:
+            return { text: 'ld b, (hl)', execute: instructions.loadHLFromMemoryToRegister('b') };
+        case 0x47:
+            return { text: 'ld b, a', execute: instructions.loadRegisterToRegister('a', 'b') };
+        case 0x48:
+            return { text: 'ld c, b', execute: instructions.loadRegisterToRegister('b', 'c') };
+        case 0x48:
+            return { text: 'ld c, c', execute: instructions.loadRegisterToRegister('c', 'c') };
+        case 0x67:
+            return { text: 'ld h, a', execute: instructions.loadRegisterToRegister('a', 'h') };
+        case 0x87:
+            return { text: 'add a, a', execute: instructions.addRegisters('a', 'a') }
         case 0xC3: {
             let nn = next() | (next() << 8);
-
+    
             return { text: `jp ${formatHex(nn)}`, execute: instructions.jump(nn) };
-        }
-        case 0x43: {
-            return { text: '' };
-        }
-        case 0x46:
-            return { text: 'ld b, (hl)', execute: instructions.loadHLFromMemorytoB() };
-        case 0x47:
-            return { text: 'ld b, a', execute: instructions.loadAtoB() };
-        case 0xC6:
-            switch (parts.y) {
-                case 0x0:
-                    return;
-                case 0x1:
-                    return;
-                case 0x2:
-                    return;
-                case 0x3:
-                    return;
-                case 0x4:
-                    return;
-                case 0x5:
-                    return;
-                case 0x6:
-                    return;
-                case 0x7: {
-                    let n = next();
-
-                    return { text: `CP ${formatHex(n, 2)}`, execute: instructions.compare(n) };
-                }
             }
+        case 0xC7: {
+            
+        }
+        default: debugger;
     }
 };
 

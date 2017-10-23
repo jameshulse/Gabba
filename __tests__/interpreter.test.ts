@@ -34,7 +34,7 @@ let loadRom = (file) => {
 
 describe('Dissassemble', () => {
     let pokemon = loadRom('../roms/games/Pokemon Red.gb');
-    let testRom = loadRom('../roms/Boot ROM.gb');
+    let tetris = loadRom('../roms/games/Tetris.gb');
 
     // test('Can decode headers', () => {
     //     let rom = interpreter.disassemble(pokemon);
@@ -43,7 +43,7 @@ describe('Dissassemble', () => {
     // });
 
     test('Decode instructions', () => {
-        let rom = interpreter.disassemble(testRom);
+        let rom = interpreter.disassemble(tetris);
 
         expect(Object.getOwnPropertyNames(rom.instructions)).not.toHaveLength(0);
     });
