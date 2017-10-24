@@ -7,7 +7,9 @@ export default class Registers {
     private _f: number;
     private _h: number;
     private _l: number;
+    
     public sp: number;
+    public pc: number;
 
     /*
         AF    A    -    Accumulator & Flags
@@ -28,6 +30,7 @@ export default class Registers {
         this.de = 0x00D8;
         this.hl = 0x014D;
         this.sp = 0xFFFE; // Start of stack
+        this.pc = 0x100; // After BIOS
     }
 
     public get a() { return this._a; };
@@ -49,7 +52,7 @@ export default class Registers {
     public set l(value: number) { this._l = value & 0xFF; }
 
     public get af() {
-        return (this._a << 8) & this._f;
+        return (this._a << 8) | this._f;
     }
 
     public set af(value: number) {
@@ -58,7 +61,7 @@ export default class Registers {
     }
 
     public get bc() {
-        return (this._b << 8) & this._c;
+        return (this._b << 8) | this._c;
     }
 
     public set bc(value: number) {
@@ -67,7 +70,7 @@ export default class Registers {
     }
 
     public get de() {
-        return (this._d << 8) & this._e;
+        return (this._d << 8) | this._e;
     }
 
     public set de(value: number) {
@@ -76,7 +79,7 @@ export default class Registers {
     }
 
     public get hl() {
-        return (this._h << 8) & this._l;
+        return (this._h << 8) | this._l;
     }
 
     public set hl(value: number) {

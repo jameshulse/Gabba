@@ -4,7 +4,7 @@ import * as instructions from './instructions';
 import Rom from './rom';
 import Header from './header';
 
-const opMap = (parts: IOpCode, next: () => number) => {
+export const opMap = (parts: IOpCode, next: () => number) => {
     // See: http://www.z80.info/decoding.htm
     //      http://www.z80.info/z80gboy.txt
     //      http://clrhome.org/table
@@ -16,7 +16,10 @@ const opMap = (parts: IOpCode, next: () => number) => {
         case 0x01: {
             let nn = next() | (next() << 8);
 
-            return { text: 'ld bc, nn', execute: instructions.loadNNtoRegister(nn, 'bc') };
+            return {
+                text: `ld bc, ${formatHex(nn)}`,
+                execute: instructions.loadNNtoRegister(nn, 'bc')
+            };
         }
         case 0x02:
             return { text: 'ld (bc), a', execute: instructions.loadRegisterToLocationFromRegister('a', 'bc') }
@@ -29,10 +32,10 @@ const opMap = (parts: IOpCode, next: () => number) => {
         case 0x06: {
             let n = next();
 
-            return { text: 'ld b, n', execute: instructions.loadNtoRegister(n, 'b') }
+            return { text: `ld b, ${formatHex(n, 2)}`, execute: instructions.loadNtoRegister(n, 'b') }
         }
         case 0x07:
-            return { text: 'rlca', execute: instructions.rotateLeftCarryA() }
+            return { text: 'rlca', execute: instructions.rotateAccuLeftCarry() }
         case 0x40:
             return { text: 'ld b, b', execute: instructions.loadRegisterToRegister('b', 'b') };
         case 0x41:
@@ -44,7 +47,7 @@ const opMap = (parts: IOpCode, next: () => number) => {
         case 0x44:
             return { text: 'ld b, h', execute: instructions.loadRegisterToRegister('h', 'b') };
         case 0x45:
-            return { text: 'ld b, l', execute: instructions.loadRegisterToRegister('h', 'l') };
+            return { text: 'ld b, l', execute: instructions.loadRegisterToRegister('l', 'b') };
         case 0x46:
             return { text: 'ld b, (hl)', execute: instructions.loadHLFromMemoryToRegister('b') };
         case 0x47:
@@ -65,7 +68,8 @@ const opMap = (parts: IOpCode, next: () => number) => {
         case 0xC7: {
             
         }
-        default: debugger;
+        default:
+            debugger;
     }
 };
 

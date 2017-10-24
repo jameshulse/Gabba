@@ -1,6 +1,5 @@
 import 'jest';
-import * as fs from 'fs';
-import * as path from 'path';
+import { loadRom } from './helpers';
 import * as interpreter from '../core/interpreter';
 
 describe('Parse', () => {
@@ -24,13 +23,6 @@ describe('Parse', () => {
         expect(interpreter.parse(0xFD).z).toBe(0x05);
     });
 });
-
-let loadRom = (file) => {
-    let romPath = path.join(__dirname, file);
-    let fileBuffer = fs.readFileSync(romPath);
-
-    return new DataView(fileBuffer.buffer);
-}
 
 describe('Dissassemble', () => {
     let pokemon = loadRom('../roms/games/Pokemon Red.gb');

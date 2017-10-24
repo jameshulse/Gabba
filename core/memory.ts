@@ -20,4 +20,20 @@ export default class Memory {
             this.memory.setUint8(i, 0);
         }
     }
+
+    public getUint8(offset: number) {
+        return this.memory.getUint8(offset);
+    }
+
+    public getUint16(offset: number) {
+        return this.memory.getUint16(offset);
+    }
+
+    public setUint8(offset: number, value: number) {
+        this.memory.setUint8(offset, value);
+    }
+
+    public setUint16(offset: number, value: number) {
+        this.memory.setUint16(offset, value);
+    }
 }

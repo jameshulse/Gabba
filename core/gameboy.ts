@@ -21,6 +21,6 @@ export default class Gameboy {
     }
 
     public step() {
-        
+        return this.cpu.cycle();
     }
 }

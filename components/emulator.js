@@ -1,5 +1,6 @@
 import React from 'react';
 import Screen from './screen';
+import Debugger from './debugger';
 import Title from './title';
 import Log from './log';
 import Gameboy from '../core/gameboy';
@@ -27,6 +28,7 @@ export default class Emulator extends React.Component {
                 <div className="columns">
                     <div className="column is-one-third">
                         <Title size={5}>Debugger</Title>
+                        <Debugger />
                     </div>
                     <div className="column is-one-third">
                         <Screen width={160} height={144} />

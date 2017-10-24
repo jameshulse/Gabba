@@ -5,11 +5,32 @@
             "type": "node",
             "request": "launch",
             "protocol": "inspector",
-            "name": "Launch Jest",
+            "name": "Run All Tests",
             "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
             "cwd": "${workspaceRoot}",
             "args": [
                 "__tests__",
+                "--config",
+                "jest.config.json",
+                "--runInBand"
+            ],
+            "runtimeArgs": [
+                "--nolazy"
+            ],
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "sourceMaps": true
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "protocol": "inspector",
+            "name": "Run File Tests",
+            "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+            "cwd": "${workspaceRoot}",
+            "args": [
+                "${file}",
                 "--config",
                 "jest.config.json",
                 "--runInBand"
