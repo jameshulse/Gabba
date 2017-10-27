@@ -1,3 +1,4 @@
+import Memory from './memory';
 import Registers from './registers';
 
 export interface IRomFile {
@@ -16,7 +17,9 @@ export interface IOpCode {
 }
 
 export interface ICpuState {
-    memory: DataView;
+    memory: Memory;
     registers: Registers;
     ticks: number;
+    pushStack: (value: number) => void;
+    popStack: () => number;
 }

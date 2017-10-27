@@ -3,7 +3,7 @@ import Memory from '../core/memory';
 import Cpu from '../core/cpu';
 import { loadRom } from './helpers';
 
-test('Tetris ootstrap', () => {
+test('Tetris bootstrap', () => {
     let memory = new Memory();
     let cpu = new Cpu(memory);
     let tetris = loadRom('../roms/games/Tetris.gb');

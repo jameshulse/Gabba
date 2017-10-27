@@ -39,4 +39,17 @@ export default class Cpu {
     private fetch(): number {
         return this.memory.getUint8(this.registers.pc);
     }
+
+    public pushStack(value) {
+        this.registers.sp--;
+        this.memory.setUint16(this.registers.sp, value);
+    }
+
+    public popStack() {
+        let value = this.memory.getUint16(this.registers.sp);
+
+        this.registers.sp++;
+
+        return value;
+    }
 }

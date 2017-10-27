@@ -64,9 +64,26 @@ export const opMap = (parts: IOpCode, next: () => number) => {
             let nn = next() | (next() << 8);
     
             return { text: `jp ${formatHex(nn)}`, execute: instructions.jump(nn) };
-            }
-        case 0xC7: {
-            
+        }
+        case 0xC4: {
+            let nn = next() | (next() << 8);
+
+            return { text: `jp nz, ${nn}`, execute: instructions.callIfZeroFlagNotSet(nn) };
+        }
+        case 0xCC: {
+            let nn = next() | (next() << 8);
+
+            return { text: `jp z, ${nn}`, execute: instructions.callIfZeroFlagSet(nn) };
+        }
+        case 0xD4: {
+            let nn = next() | (next() << 8);
+
+            return { text: `jp nc, ${nn}`, execute: instructions.callIfCarryFlagNotSet(nn) };
+        }
+        case 0xDC: {
+            let nn = next() | (next() << 8);
+
+            return { text: `jp c, ${nn}`, execute: instructions.callIfCarryFlagSet(nn) };
         }
         default:
             debugger;
