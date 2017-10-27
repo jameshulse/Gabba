@@ -59,7 +59,12 @@ export const opMap = (parts: IOpCode, next: () => number) => {
         case 0x67:
             return { text: 'ld h, a', execute: instructions.loadRegisterToRegister('a', 'h') };
         case 0x87:
-            return { text: 'add a, a', execute: instructions.addRegisters('a', 'a') }
+            return { text: 'add a, a', execute: instructions.addRegisters('a', 'a') };
+        case 0xC2: {
+            let nn = next() | (next() << 8);
+
+            return { text: `jp nz, ${nn}`, execute: instructions.jumpIfZeroFlagNotSet(nn) }
+        }
         case 0xC3: {
             let nn = next() | (next() << 8);
     
@@ -69,6 +74,11 @@ export const opMap = (parts: IOpCode, next: () => number) => {
             let nn = next() | (next() << 8);
 
             return { text: `jp nz, ${nn}`, execute: instructions.callIfZeroFlagNotSet(nn) };
+        }
+        case 0xCA: {
+            let nn = next() | (next() << 8);
+
+            return { text: `jp z, ${nn}`, execute: instructions.jumpIfZeroFlagSet(nn) }
         }
         case 0xCC: {
             let nn = next() | (next() << 8);

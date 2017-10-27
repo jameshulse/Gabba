@@ -2,8 +2,8 @@ import { ICpuState } from './interfaces';
 
 export function nop() {
     return (cpu: ICpuState) => {
-        cpu.ticks += 1;
         cpu.registers.pc += 1;
+        cpu.ticks += 1;
     };
 };
 
@@ -11,6 +11,30 @@ export function jump(nn) {
     return (cpu: ICpuState) => {
         cpu.registers.pc = nn;
         cpu.ticks += 4;
+    };
+};
+
+export function jumpIfZeroFlagNotSet(nn) {
+    return (cpu: ICpuState) => {
+        if (!cpu.registers.zero) {
+            cpu.registers.pc = nn;
+            cpu.ticks += 4; // TODO: Check
+        } else {
+            cpu.registers.pc += 3;
+            cpu.ticks += 3;
+        }
+    };
+};
+
+export function jumpIfZeroFlagSet(nn) {
+    return (cpu: ICpuState) => {
+        if (cpu.registers.zero) {
+            cpu.registers.pc = nn;
+            cpu.ticks += 4; // TODO: Check
+        } else {
+            cpu.registers.pc += 3;
+            cpu.ticks += 3;
+        }
     };
 };
 

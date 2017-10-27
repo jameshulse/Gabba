@@ -41,14 +41,14 @@ export default class Cpu {
     }
 
     public pushStack(value) {
-        this.registers.sp--;
+        this.registers.sp -= 2;
         this.memory.setUint16(this.registers.sp, value);
     }
 
     public popStack() {
         let value = this.memory.getUint16(this.registers.sp);
 
-        this.registers.sp++;
+        this.registers.sp += 2;
 
         return value;
     }
