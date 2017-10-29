@@ -267,6 +267,20 @@ export function xor(r: string) {
     };
 };
 
+export function and(r: string) {
+    return (cpu: ICpuState) => {
+        cpu.registers.a &= cpu.registers[r];
+        cpu.ticks += 1;
+    };
+};
+
+export function or(r: string) {
+    return (cpu: ICpuState) => {
+        cpu.registers.a |= cpu.registers[r];
+        cpu.ticks += 1;
+    };
+};
+
 export function subtractRegisterFromA(r: string) {
     return (cpu: ICpuState) => {
         cpu.registers.a -= cpu.registers[r];

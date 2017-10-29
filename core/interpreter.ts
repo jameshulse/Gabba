@@ -12,7 +12,7 @@ export const opMap = (parts: IOpCode, next: () => number) => {
     //      http://z80-heaven.wikidot.com/opcode-reference-chart
     switch (parts.opCode) {
         case 0x00:
-            return { text: 'NOP', execute: instructions.nop() };
+            return { text: 'nop', execute: instructions.nop() };
         case 0x01: {
             let nn = next() | (next() << 8);
 
@@ -308,8 +308,48 @@ export const opMap = (parts: IOpCode, next: () => number) => {
             return { text: 'sub h', execute: instructions.subtractRegisterFromA('h') };
         case 0x95:
             return { text: 'sub l', execute: instructions.subtractRegisterFromA('l') };
+        case 0xA0:
+            return { text: 'and b', execute: instructions.and('b') };
+        case 0xA1:
+            return { text: 'and c', execute: instructions.and('c') };
+        case 0xA2:
+            return { text: 'and d', execute: instructions.and('d') };
+        case 0xA3:
+            return { text: 'and e', execute: instructions.and('e') };
+        case 0xA4:
+            return { text: 'and h', execute: instructions.and('h') };
+        case 0xA5:
+            return { text: 'and l', execute: instructions.and('l') };
+        case 0xA7:
+            return { text: 'and a', execute: instructions.and('a') };
+        case 0xA8:
+            return { text: 'xor b', execute: instructions.xor('b') };
+        case 0xA9:
+            return { text: 'xor c', execute: instructions.xor('c') };
+        case 0xAA:
+            return { text: 'xor d', execute: instructions.xor('d') };
+        case 0xAB:
+            return { text: 'xor e', execute: instructions.xor('e') };
+        case 0xAC:
+            return { text: 'xor h', execute: instructions.xor('h') };
+        case 0xAD:
+            return { text: 'xor l', execute: instructions.xor('l') };
         case 0xAF:
             return { text: 'xor a', execute: instructions.xor('a') }
+        case 0xB0:
+            return { text: 'or b', execute: instructions.or('b') };
+        case 0xB1:
+            return { text: 'or c', execute: instructions.or('c') };
+        case 0xB2:
+            return { text: 'or d', execute: instructions.or('d') };
+        case 0xB3:
+            return { text: 'or e', execute: instructions.or('e') };
+        case 0xB4:
+            return { text: 'or h', execute: instructions.or('h') };
+        case 0xB5:
+            return { text: 'or l', execute: instructions.or('l') };
+        case 0xB7:
+            return { text: 'or a', execute: instructions.or('a') };
         case 0xC2: {
             let nn = next() | (next() << 8);
 

@@ -6,7 +6,7 @@ import { loadRom } from './helpers';
 test('Tetris bootstrap', () => {
     let memory = new Memory();
     let cpu = new Cpu(memory);
-    let tetris = loadRom('../roms/games/Tetris.gb');
+    let tetris = loadRom('../roms/cpu_instrs/individual/04-op r,imm.gb');
 
     memory.load(tetris);
 
