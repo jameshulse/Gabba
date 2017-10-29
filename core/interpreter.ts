@@ -35,7 +35,12 @@ export const opMap = (parts: IOpCode, next: () => number) => {
             return { text: `ld b, ${formatHex(n, 2)}`, execute: instructions.loadNtoRegister(n, 'b') }
         }
         case 0x07:
-            return { text: 'rlca', execute: instructions.rotateAccuLeftCarry() }
+            return { text: 'rlca', execute: instructions.rotateAccuLeftCarry() };
+        case 0x21: {
+            let nn = next() | (next() << 8);
+
+            return { text: `ld hl, ${nn}`, execute: instructions.loadNNtoRegister(nn, 'hl') };
+        }
         case 0x40:
             return { text: 'ld b, b', execute: instructions.loadRegisterToRegister('b', 'b') };
         case 0x41:
@@ -73,7 +78,7 @@ export const opMap = (parts: IOpCode, next: () => number) => {
         case 0xC4: {
             let nn = next() | (next() << 8);
 
-            return { text: `jp nz, ${nn}`, execute: instructions.callIfZeroFlagNotSet(nn) };
+            return { text: `call nz, ${nn}`, execute: instructions.callIfZeroFlagNotSet(nn) };
         }
         case 0xCA: {
             let nn = next() | (next() << 8);
@@ -83,17 +88,17 @@ export const opMap = (parts: IOpCode, next: () => number) => {
         case 0xCC: {
             let nn = next() | (next() << 8);
 
-            return { text: `jp z, ${nn}`, execute: instructions.callIfZeroFlagSet(nn) };
+            return { text: `call z, ${nn}`, execute: instructions.callIfZeroFlagSet(nn) };
         }
         case 0xD4: {
             let nn = next() | (next() << 8);
 
-            return { text: `jp nc, ${nn}`, execute: instructions.callIfCarryFlagNotSet(nn) };
+            return { text: `call nc, ${nn}`, execute: instructions.callIfCarryFlagNotSet(nn) };
         }
         case 0xDC: {
             let nn = next() | (next() << 8);
 
-            return { text: `jp c, ${nn}`, execute: instructions.callIfCarryFlagSet(nn) };
+            return { text: `call c, ${nn}`, execute: instructions.callIfCarryFlagSet(nn) };
         }
         default:
             debugger;
@@ -102,8 +107,7 @@ export const opMap = (parts: IOpCode, next: () => number) => {
 
 export function parse(byte: number) : IOpCode {
     return {
-        byte,
-        opCode: byte & 0xC7,
+        opCode: byte,
         x: byte >>> 6,
         z: byte & 0x07,
         y: (byte & 0x38) >>> 3,
