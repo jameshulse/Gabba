@@ -25,11 +25,7 @@ export default class Cpu {
     public cycle() {
         let byte = this.fetch();
         let params = parse(byte);
-        let operation = opMap(params, () => {
-            this.registers.pc += 1;
-
-            return this.fetch();
-        });
+        let operation = opMap(params, () => this.fetch());
 
         operation.execute(this);
 
@@ -37,7 +33,11 @@ export default class Cpu {
     }
 
     private fetch(): number {
-        return this.memory.getUint8(this.registers.pc);
+        let value = this.memory.getUint8(this.registers.pc);
+
+        this.registers.pc += 1;
+
+        return value;
     }
 
     public pushStack(value) {
