@@ -6,7 +6,7 @@ export default class Memory {
     public load(rom: Uint8Array) {
         let data = new Uint8Array(MEMORY_SIZE);
 
-        data.set(rom /* TODO: what is the ROM offset? */);
+        data.set(rom);
 
         this.memory = new DataView(data.buffer);
     }

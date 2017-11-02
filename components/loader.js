@@ -13,7 +13,7 @@ export default ({ onLoad }) => {
         reader.onload = () => {
             onLoad({
                 name: file.name,
-                data: reader.result
+                data: new Uint8Array(reader.result)
             });
         };
     };
@@ -24,7 +24,7 @@ export default ({ onLoad }) => {
 
             onLoad({
                 name,
-                data
+                data: new Uint8Array(data)
             });
         });
     };

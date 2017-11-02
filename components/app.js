@@ -19,8 +19,28 @@ export default class App extends React.Component {
         }));
     }
 
+    onBackClick() {
+        this.setState((prev) => ({
+            ...prev,
+            rom: null
+        }));
+    }
+
     render() {
         const { rom } = this.state;
+
+        let view = () => {
+            if (rom) {
+                return (
+                    <div>
+                        <a onClick={this.onBackClick.bind(this)}>&lt; Back to Loader</a>
+                        <Emulator rom={rom} />
+                    </div>
+                );
+             } else {
+                return <Loader onLoad={this.loadRom.bind(this)} />
+            }
+        }
 
         return (
             <div>
@@ -30,9 +50,7 @@ export default class App extends React.Component {
                     </div>
                 </nav>
                 <div className="container is-widescreen">
-                    {
-                        rom ? <Emulator rom={rom} /> : <Loader onLoad={this.loadRom.bind(this)} />
-                    }
+                    { view() }
                 </div>
             </div>
         );

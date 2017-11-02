@@ -12,3 +12,32 @@
     padding-top: 20px;
     padding-bottom: 20px;
 }
+
+.actions {
+    :not(:last-child) {
+        margin-right: 0.5em;
+    }
+
+    margin-bottom: 20px;
+}
+
+.log {
+    white-space: pre;
+
+    &__items {
+        height: 300px;
+        overflow: scroll;
+    }
+}
+
+.registers {
+    width: 200px;
+
+    &__value {
+        transition: all 300ms;
+    }
+
+    &__value--changed {
+        background: rgb(175, 116, 22);
+    }
+}

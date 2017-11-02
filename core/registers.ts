@@ -30,7 +30,18 @@ export default class Registers {
         this.de = 0x00D8;
         this.hl = 0x014D;
         this.sp = 0xFFFE; // Start of stack
-        this.pc = 0x100; // After BIOS
+        this.pc = 0x100;  // After BIOS
+    }
+
+    snapshot() {
+        return {
+            af: this.af,
+            bc: this.bc,
+            de: this.de,
+            hl: this.hl,
+            sp: this.sp,
+            pc: this.pc
+        };
     }
 
     public get a() { return this._a; };

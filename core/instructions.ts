@@ -71,7 +71,7 @@ export function jumpNIfZeroFlagSet(n) {
 export function jumpNIfZeroFlagNotSet(n) {
     return (cpu: ICpuState) => {
         if (!cpu.registers.zero) {
-            cpu.registers.pc += n;
+            cpu.registers.pc += (n - 2);
             cpu.ticks += 3;
         } else {
             cpu.ticks += 2;

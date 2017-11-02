@@ -1,4 +1,4 @@
-import { range } from './utils';
+import { formatHex } from './utils';
 import { IRomFile } from './interfaces';
 import { parse, opMap } from './interpreter';
 import Memory from './memory';
@@ -17,19 +17,23 @@ export default class Cpu {
     }
 
     public reset() {
-        this.memory.reset();
         this.registers.reset();
         this.ticks = 0;
     }
 
     public cycle() {
+        let location = this.registers.pc;
         let byte = this.fetch();
         let params = parse(byte);
+
         let operation = opMap(params, () => this.fetch());
 
         operation.execute(this);
 
-        return operation.text;
+        return {
+            log: `${formatHex(location)}\t${formatHex(byte, 2)}\t${operation.text}`,
+            registers: this.registers.snapshot()
+        };
     }
 
     private fetch(): number {

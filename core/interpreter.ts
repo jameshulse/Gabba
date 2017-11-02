@@ -55,7 +55,7 @@ export const opMap = (parts: IOpCode, next: () => number) => {
         case 0x0E: {
             let n = next();
 
-            return { text: `ld c, ${n}`, execute: instructions.loadNtoRegister(n, 'c') };
+            return { text: `ld c, ${formatHex(n, 2)}`, execute: instructions.loadNtoRegister(n, 'c') };
         }
         case 0x11: {
             let nn = next() | (next() << 8);
@@ -143,6 +143,11 @@ export const opMap = (parts: IOpCode, next: () => number) => {
             let n = next();
 
             return { text: `jr nc, ${formatHex(n, 2)}`, execute: instructions.jumpNIfCarryFlagNotSet(n) };
+        }
+        case 0x31: {
+            let nn = next() | (next() << 8);
+
+            return { text: `ld sp, ${formatHex(nn, 2)}`, execute: instructions.loadNNtoRegister(nn, 'sp') };
         }
         case 0x32: {
             let n = next();
